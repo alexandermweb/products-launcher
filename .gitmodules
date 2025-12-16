@@ -1,0 +1,3 @@
+[submodule "client-gateway"]
+	path = client-gateway
+	url = git@github.com:alexandermweb/ms_project-client_gateway.git
