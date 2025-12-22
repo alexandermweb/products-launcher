@@ -11,3 +11,6 @@
 [submodule "payments-ms"]
 	path = payments-ms
 	url = git@github.com:alexandermweb/ms-project-payments.git
+[submodule "auth-ms"]
+	path = auth-ms
+	url = git@github.com:alexandermweb/ms-project-auth.git
