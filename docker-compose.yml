@@ -20,64 +20,74 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
 
 
-  products-ms:
-    build: ./products-ms
+  atuh-ms:
+    build: ./auth-ms
     volumes:
-      - ./products-ms/src:/usr/src/app/src
+      - ./auth-ms/src:/usr/src/app/src
     command: npm run start:dev
     environment:
-      - PORT=3000
+      - PORT=3004
       - NATS_SERVERS=nats://nats-server:4222
 
 
-
-  #orders ms
-  orders-ms:
-    depends_on:
-      - orders-db
-    build: ./orders-ms
-    volumes:
-      - ./orders-ms/src:/usr/src/app/src
-    command: npm run start:dev
-    environment:
-      - PORT=3002
-      - DB_HOST=orders-db
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=123456
-      - DB_NAME=ordersdb
-      - NATS_SERVERS=nats://nats-server:4222
-
-
-  #orders db
-  orders-db:
-    container_name: orders_database
-    image: postgres:16.2
-    restart: always
-    volumes:
-      - ./databases/orders/postgres:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=ordersdb
+  # products-ms:
+  #   build: ./products-ms
+  #   volumes:
+  #     - ./products-ms/src:/usr/src/app/src
+  #   command: npm run start:dev
+  #   environment:
+  #     - PORT=3000
+  #     - NATS_SERVERS=nats://nats-server:4222
 
 
 
-  #payments ms
-  payments-ms:
-    container_name: payments-ms
-    build: ./payments-ms
-    volumes:
-      - ./payments-ms/src:/usr/src/app/src
-    command: npm run start:dev
-    ports:
-      - ${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}
-    environment:
-      - PORT=${PAYMENTS_MS_PORT}
-      - NATS_SERVERS=nats://nats-server:4222
-      - STRIPE_SECRET=${STRIPE_SECRET}
-      - STRIPE_SUCCESS_URL=${STRIPE_SUCCESS_URL}
-      - STRIPE_CANCEL_URL=${STRIPE_CANCEL_URL}
-      - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
+  # #orders ms
+  # orders-ms:
+  #   depends_on:
+  #     - orders-db
+  #   build: ./orders-ms
+  #   volumes:
+  #     - ./orders-ms/src:/usr/src/app/src
+  #   command: npm run start:dev
+  #   environment:
+  #     - PORT=3002
+  #     - DB_HOST=orders-db
+  #     - DB_PORT=5432
+  #     - DB_USER=postgres
+  #     - DB_PASSWORD=123456
+  #     - DB_NAME=ordersdb
+  #     - NATS_SERVERS=nats://nats-server:4222
+
+
+  # #orders db
+  # orders-db:
+  #   container_name: orders_database
+  #   image: postgres:16.2
+  #   restart: always
+  #   volumes:
+  #     - ./databases/orders/postgres:/var/lib/postgresql/data
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=123456
+  #     - POSTGRES_DB=ordersdb
+
+
+
+  # #payments ms
+  # payments-ms:
+  #   container_name: payments-ms
+  #   build: ./payments-ms
+  #   volumes:
+  #     - ./payments-ms/src:/usr/src/app/src
+  #   command: npm run start:dev
+  #   ports:
+  #     - ${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}
+  #   environment:
+  #     - PORT=${PAYMENTS_MS_PORT}
+  #     - NATS_SERVERS=nats://nats-server:4222
+  #     - STRIPE_SECRET=${STRIPE_SECRET}
+  #     - STRIPE_SUCCESS_URL=${STRIPE_SUCCESS_URL}
+  #     - STRIPE_CANCEL_URL=${STRIPE_CANCEL_URL}
+  #     - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
