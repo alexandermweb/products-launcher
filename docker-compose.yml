@@ -20,7 +20,9 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
 
 
-  atuh-ms:
+  auth-ms:
+    depends_on:
+      - auth-db
     build: ./auth-ms
     volumes:
       - ./auth-ms/src:/usr/src/app/src
@@ -28,6 +30,27 @@ services:
     environment:
       - PORT=3004
       - NATS_SERVERS=nats://nats-server:4222
+      - DB_HOST=auth-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=123456
+      - DB_NAME=authdb
+      - JWT_SECRET=${JWT_SECRET}
+
+
+  #auth db
+  auth-db:
+    container_name: auth_database
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./databases/auth/postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=authdb
 
 
   # products-ms:
