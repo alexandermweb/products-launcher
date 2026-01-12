@@ -10,7 +10,7 @@ services:
     build: 
       context: ./client-gateway
       dockerfile: dockerfile.prod
-    image: client-gateway-prod
+    image: ghcr.io/alexandermweb/client-gateway
     ports: 
       - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
     environment:
@@ -24,7 +24,7 @@ services:
     build: 
       context: ./auth-ms
       dockerfile: dockerfile.prod
-    image: auth-ms-prod
+    image: ghcr.io/alexandermweb/auth-ms
     environment:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
@@ -55,7 +55,7 @@ services:
     build: 
       context: ./products-ms
       dockerfile: dockerfile.prod
-    image: products-ms-prod
+    image: ghcr.io/alexandermweb/products-ms
     environment:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
@@ -69,7 +69,7 @@ services:
     build: 
       context: ./orders-ms
       dockerfile: dockerfile.prod
-    image: orders-ms-prod
+    image: ghcr.io/alexandermweb/orders-ms
     environment:
       - PORT=3002
       - DB_HOST=orders-db
@@ -100,7 +100,7 @@ services:
     build: 
       context: ./payments-ms
       dockerfile: dockerfile.prod
-    image: payments-ms-prod
+    image: ghcr.io/alexandermweb/payments-ms
     ports:
       - ${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}
     environment:
